@@ -26,6 +26,22 @@ public class UsuarioManagedBean {
 		EntityManager em = emf.createEntityManager();
 		
 		try {
+			
+			if (usuario.getNome().isEmpty()) {
+				addMessage("Favor prencher o nome do usuário!");
+				return null;					
+			}
+
+			if (usuario.getLogin().isEmpty()) {
+				addMessage("Favor prencher o login do usuário!");
+				return null;					
+			}
+			
+			if (usuario.getSenha().isEmpty()) {
+				addMessage("Favor prencher a senha do usuário!");
+				return null;					
+			}
+			
 			em.getTransaction().begin();
 			em.persist(usuario);
 			em.getTransaction().commit();
@@ -46,7 +62,6 @@ public class UsuarioManagedBean {
 			usuario = usuarioDAO.getUsuario(login.getLogin(), login.getSenha());
 	
 			if (usuario == null) {
-				usuario = new Usuario();
 				addMessage("Usuário não encontrado!");
 				return null;
 			} else {
