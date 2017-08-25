@@ -1,0 +1,6 @@
+@CHARSET "ISO-8859-1";
+
+.noBorders tbody tr {
+	border: none;
+	border-color: transparent;
+}  

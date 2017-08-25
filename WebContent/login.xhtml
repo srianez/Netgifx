@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css" />   
+   <link rel="stylesheet" href="/Netgifx/css/login.css" type="text/css"/>
+    
+</h:head>
+
+
+<h:body>
+<p:panelGrid columns="1" align="center">
+	<h:form class="ui raised very padded center aligned text container segment"> 
+		<p:messages id="messages" />
+          
+          <p:panel id="loginPnl" header="Bem vindo ao Netgifs">
+		  <br></br> 
+
+		
+			<p:panelGrid columns="2" class="noBorders">
+
+				<p:outputLabel value="Usuário" for="txtLogin" />
+				<p:inputText id="txtLogin" value="#{UsuarioMB.login.login}" maxlength="15" width="100" />
+
+				<p:outputLabel value="Senha" for="txtSenha" />
+				<p:password id="txtSenha" value="#{UsuarioMB.login.senha}" maxlength="10" />
+			</p:panelGrid>
+            
+            <p:spacer height="50" />
+			
+			<h:column>
+				<p:commandButton value="Login" icon="ui-icon-arrowreturn-1-e" action="#{UsuarioMB.enviar}" ajax="false">
+				</p:commandButton>
+			</h:column>
+			 <p:spacer width="50" height="40" /> 
+ 			<h:column>
+				<p:commandButton value="Cadastrar novo usuário"
+					             icon="ui-icon-person" action="#{UsuarioMB.novo}" ajax="false">
+				</p:commandButton>
+			</h:column> 
+		</p:panel>
+
+		
+	</h:form>
+</p:panelGrid>
+</h:body>
+</html>
