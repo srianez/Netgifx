@@ -9,7 +9,8 @@ import javax.persistence.Table;
 /*CREATE TABLE netgif.usuario (
 	       nome VARCHAR(200) not null,
 	       login varchar(20) not null,
-	       senha VARCHAR(10) not null);*/
+	       senha VARCHAR(10) not null);
+*/
 
 @Entity
 @Table(name = "USUARIO")

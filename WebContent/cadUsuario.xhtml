@@ -23,13 +23,15 @@
 			<p:outputLabel for="senha" value="Senha:" />
 			<p:password id="senha" value="#{UsuarioMB.usuario.senha}" maxlength="10" feedback="true" />
 			
-			<p:commandButton value="Salvar" icon="ui-icon-check"
+			<p:commandButton value="Salvar" icon="ui-icon-disk"
 				             action="#{UsuarioMB.cadastraUsuario}" update="messages">
 			</p:commandButton>
 			
-   			<p:commandButton value="Voltar para login"
+			<p:commandButton value="Limpar" type="reset"/>
+			
+    		<p:commandButton value="Voltar para login"
 				icon="ui-icon-arrowreturn-1-e" action="#{UsuarioMB.login}">
-			</p:commandButton>		
+			</p:commandButton>				
 	
 		</p:panelGrid>
 
@@ -38,15 +40,4 @@
 </h:body>
 
 </html>
-
-<!-- 			
-            <p:outputLabel for="nome" value="Nome Completo:" />
-			<p:inputText id="nome" value="#{UsuarioMB.usuario.nome}" maxlength="30" requiredMessage="O nome completo do usuário deve ser preenchido" required="true"/>
-       
-			<p:outputLabel for="usuario" value="Usuário:" />
-			<p:inputText id="usuario" value="#{UsuarioMB.usuario.login}" maxlength="15" requiredMessage="O login deve ser preenchido" required="true" />
-
-			<p:outputLabel for="senha" value="Senha:" />
-			<p:password id="senha" value="#{UsuarioMB.usuario.senha}" maxlength="10" requiredMessage="A senha deve ser preenchida" required="true" feedback="true" />
--->
 	
