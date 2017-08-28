@@ -2,9 +2,7 @@ package br.fiap.com.managedbeans;
 
 import java.sql.SQLException;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -18,68 +16,70 @@ import br.com.fiap.utils.PrimeFaceMessage;
 public class UsuarioManagedBean {
 
 	private Usuario usuario = new Usuario();
-	private UsuarioDAO usuarioDAO = new UsuarioDAO();
-	
 	private Login login = new Login();
+	private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private PrimeFaceMessage PfMessage = new PrimeFaceMessage();
+	private Usuario existeUsuario;
 	
-	private PrimeFaceMessage PfMessage = new PrimeFaceMessage();
-
 	public String cadastraUsuario() throws SQLException {
 
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Netgifx");
 		EntityManager em = emf.createEntityManager();
+
+		if (usuario.getNome().isEmpty()) {
+			PfMessage.addErrorMessage("Favor prencher o nome do usuário!");
+			return null;
+		} else if (usuario.getLogin().isEmpty()) {
+			PfMessage.addErrorMessage("Favor prencher o login do usuário!");
+			return null;
+		} else if (usuario.getSenha().isEmpty()) {
+			PfMessage.addErrorMessage("Favor prencher a senha do usuário!");
+			return null;
+		}
+
+		existeUsuario = usuarioDAO.existeUsuario(usuario.getLogin(), usuario.getNome());
+		
+		if (existeUsuario != null) {
+			PfMessage.addErrorMessage("Usuário já cadastrado!");
+			return null;			
+		}
 		
 		try {
-			
-			if (usuario.getNome().isEmpty()) {
-				PfMessage.addMessage("Favor prencher o nome do usuário!");
-				return null;					
-			} else if (usuario.getLogin().isEmpty()) {
-				PfMessage.addMessage("Favor prencher o login do usuário!");
-				return null;					
-			} else if (usuario.getSenha().isEmpty()) {
-				PfMessage.addMessage("Favor prencher a senha do usuário!");
-				return null;					
-			}
-			
+
 			em.getTransaction().begin();
 			em.persist(usuario);
 			em.getTransaction().commit();
-			
-			PfMessage.addMessage("Usuário cadastrado com sucesso!");
-			
+
+			PfMessage.addInfoMessage("Usuário cadastrado com sucesso!");
+
 		} catch (Exception e) {
 			throw e;
 		} finally {
-		    em.close();
+			em.close();
 		}
 
 		return null;
 	}
-	
+
 	public String enviar() {
-		
-		if ( !login.getLogin().isEmpty() && !login.getSenha().isEmpty() ) {		
-		
+
+		if (!login.getLogin().isEmpty() && !login.getSenha().isEmpty()) {
+
 			usuario = usuarioDAO.getUsuario(login.getLogin(), login.getSenha());
-	
+
 			if (usuario == null) {
-				PfMessage.addMessage("Usuário não encontrado!");
+				PfMessage.addErrorMessage("Usuário não encontrado!");
 				return null;
 			} else {
 				return "/menubar";
 			}
 		} else {
-			PfMessage.addMessage("Favor prencher os campos Usuário e Senha!");
-			return null;		
+			PfMessage.addErrorMessage("Favor prencher os campos Usuário e Senha!");
+			return null;
 		}
 	}
 
-/*    public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }*/
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -95,6 +95,7 @@ public class UsuarioManagedBean {
 	public void setLogin(Login login) {
 		this.login = login;
 	}
+
 	public String novo() {
 		return "/cadUsuario";
 	}
@@ -102,5 +103,5 @@ public class UsuarioManagedBean {
 	public String login() {
 		return "/login";
 	}
-	
+
 }

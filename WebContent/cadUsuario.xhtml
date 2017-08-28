@@ -12,7 +12,7 @@
 	<h:form class="ui raised very padded center aligned text container segment">
 		<p:messages id="messages" />
 		
-		<p:panelGrid columns="2">
+		<p:panelGrid columns="2" class="noBorders">
 
 			<p:outputLabel for="nome" value="Nome Completo:" />
 			<p:inputText id="nome" value="#{UsuarioMB.usuario.nome}" maxlength="30"/>
@@ -27,9 +27,9 @@
 				             action="#{UsuarioMB.cadastraUsuario}" update="messages">
 			</p:commandButton>
 			
-			<p:commandButton value="Limpar" type="reset"/>
+			<p:commandButton value="Novo usuário" icon="ui-icon-person" type="reset"/>
 			
-    		<p:commandButton value="Voltar para login"
+    		<p:commandButton value="Voltar"
 				icon="ui-icon-arrowreturn-1-e" action="#{UsuarioMB.login}">
 			</p:commandButton>				
 	
